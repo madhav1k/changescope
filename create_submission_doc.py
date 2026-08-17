@@ -170,7 +170,7 @@ for text in [
     "Connect an execution agent after approval, with real diffs and a test-run timeline.",
     "Add collaboration: reviewers can comment on a plan, pin required files, and approve high-risk changes."
 ]:
-    p = doc.add_paragraph(style="List Bullet"); p.paragraph_format.space_after = Pt(4); p.add_run(text)
+    p = doc.add_paragraph(style="List Number"); p.paragraph_format.space_after = Pt(4); p.add_run(text)
 
 heading(doc, "How to run", 1)
 add_para(doc, "Clone the repository and open index.html directly in a modern browser. For a production bundle, run npm run build. The project is ready for Vercel as a static deployment and requires no environment variables.")
