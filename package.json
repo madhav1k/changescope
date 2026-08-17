@@ -4,10 +4,8 @@
   "private": true,
   "scripts": {
     "start": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "rm -rf dist && mkdir dist && cp index.html dist/index.html && cp -R src dist/src",
     "preview": "vite preview --host 0.0.0.0"
   },
-  "devDependencies": {
-    "vite": "^7.1.7"
-  }
+  "devDependencies": {}
 }
