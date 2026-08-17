@@ -109,12 +109,12 @@ add_para(doc, "FOUNDING AI ENGINEER ASSIGNMENT", size=10, color=BLUE, bold=True,
 title = add_para(doc, "ChangeScope", size=30, color=INK, bold=True, after=3)
 title.paragraph_format.space_before = Pt(14)
 add_para(doc, "An evidence-first planner for safe, multi-file engineering changes", size=14, color=MUTED, after=18)
-meta = doc.add_table(rows=3, cols=2)
-set_table_geometry(meta, [1400, 7960])
-for row, (label, value) in zip(meta.rows, [("Candidate", "Madhavik Dogra"),("Repository", "https://github.com/madhav1k/changescope"),("Deployment", "https://changescope.vercel.app")]):
-    shade(row.cells[0], PALE)
-    p = row.cells[0].paragraphs[0]; p.text=""; set_font(p.add_run(label), size=10, color=DARK, bold=True)
-    p = row.cells[1].paragraphs[0]; p.text=""; set_font(p.add_run(value), size=10, color=INK)
+for label, value in [("Candidate", "Madhavik Dogra"),("Repository", "https://github.com/madhav1k/changescope"),("Deployment", "https://changescope.vercel.app")]:
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.line_spacing = 1.1
+    set_font(p.add_run(f"{label}: "), size=10.5, color=DARK, bold=True)
+    set_font(p.add_run(value), size=10.5, color=INK)
 
 heading(doc, "What I built and why", 1)
 add_para(doc, "I built ChangeScope, a focused interface for turning a product request into a safe, reviewable implementation plan. It deliberately starts before code generation: a developer selects an issue, sees the likely dependency path, understands which files are relevant, reviews the plan, and approves it before execution.")
