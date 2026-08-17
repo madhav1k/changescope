@@ -1,5 +1,3 @@
-import "./style.css";
-
 const scenarios = {
   rbac: {
     query: "Add role-based access control to workspace API routes",
