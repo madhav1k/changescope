@@ -137,21 +137,19 @@ for text in [
 
 heading(doc, "Architecture and design", 1)
 add_para(doc, "ChangeScope is a standalone static application written in vanilla HTML, CSS, and JavaScript. It has no server, database, authentication layer, or external API requirement. This is intentional: for an assignment demo, I wanted the central product interaction to be reliable, inspectable, and deployable at zero marginal cost.")
-table = doc.add_table(rows=1, cols=3)
-set_table_geometry(table, [2200, 3900, 3260])
-for cell, value in zip(table.rows[0].cells, ["Layer", "Decision", "Why"]):
-    shade(cell, PALE); p=cell.paragraphs[0]; p.text=""; set_font(p.add_run(value), size=10, color=DARK, bold=True)
-repeat_table_header(table.rows[0])
-for rowvals in [
-    ("Interface", "Single-screen analysis workspace", "Keeps the journey visible: issue, context, plan, proof, approval."),
+for label, decision, why in [
+    ("Interface", "Single-screen analysis workspace", "Keeps the journey visible: issue, context, plan, proof, and approval."),
     ("Scenario engine", "Three deterministic scenarios", "Lets a reviewer test meaningful paths without API cost, keys, latency, or fabricated model behavior."),
     ("Change map", "Rendered dependency graph", "Makes the implied blast radius concrete and allows the plan to be challenged."),
-    ("Trust model", "Evidence and approval are first-class", "Agent output should remain reviewable and controllable, particularly for authorization and billing work."),
-    ("Deployment", "Static Vercel-compatible build", "No environment variables or backend setup are needed to run the submission.")
+    ("Trust model", "Evidence and approval are first-class", "Keeps agent output reviewable and controllable for authorization and billing work."),
+    ("Deployment", "Static Vercel-compatible build", "Needs no environment variables or backend setup.")
 ]:
-    cells=table.add_row().cells
-    for cell, value in zip(cells, rowvals):
-        p=cell.paragraphs[0]; p.text=""; set_font(p.add_run(value), size=9.5, color=INK)
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(5)
+    p.paragraph_format.line_spacing = 1.1
+    set_font(p.add_run(f"{label}. "), size=10.5, color=DARK, bold=True)
+    set_font(p.add_run(f"{decision}. "), size=10.5, color=INK, bold=True)
+    set_font(p.add_run(why), size=10.5, color=INK)
 
 heading(doc, "Key decisions and tradeoffs", 1)
 heading(doc, "1. I optimized for one strong workflow", 2)
