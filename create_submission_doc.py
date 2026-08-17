@@ -126,6 +126,10 @@ heading(doc, "What I built and why", 1)
 add_para(doc, "I built ChangeScope, a focused interface for turning a product request into a safe, reviewable implementation plan. It deliberately starts before code generation: a developer selects an issue, sees the likely dependency path, understands which files are relevant, reviews the plan, and approves it before execution.")
 add_para(doc, "I chose this because the difficult part of agentic engineering is not producing a patch. It is deciding what deserves context, showing why a recommendation is trustworthy, and making the final action controllable. The prototype makes those steps visible instead of hiding them behind a chat response.")
 
+heading(doc, "My understanding of Superbrain", 1)
+add_para(doc, "I see Superbrain as three layers working together. The IDE is the developer-facing surface where intent, relevant context, and review are visible. The agent turns that intent into a plan, edits, commands, and verification work. The context engine sits underneath: it selects and compresses the repository knowledge the agent needs so the agent can reason across files without loading the full codebase every time.")
+add_para(doc, "The key product loop is: a developer describes a change in the IDE, the agent asks the context engine for the relevant architecture and dependencies, the agent proposes or executes work, and the developer reviews the result. ChangeScope focuses on the decision surface between retrieval and execution. It explains why these files matter, what might break, and what proof should be required.")
+
 heading(doc, "Demo workflow", 1)
 for text in [
     "Choose one of three realistic changes: add RBAC, add sensitive-action audit events, or move billing webhooks to a worker.",
@@ -153,7 +157,7 @@ for label, decision, why in [
 
 heading(doc, "Key decisions and tradeoffs", 1)
 heading(doc, "1. I optimized for one strong workflow", 2)
-add_para(doc, "I did not try to recreate a coding agent. That would create a shallow product with a chat box and little evidence of judgement. Instead, I scoped the product to the decision immediately before execution: deciding the change boundary and defining what proof is needed.")
+add_para(doc, "I did not try to recreate a coding agent. That would create a shallow product with a chat box and little evidence of judgement. Instead, I scoped the product to the decision immediately before execution. The work is deciding the change boundary and defining what proof is needed.")
 heading(doc, "2. I did not add an LLM API", 2)
 add_para(doc, "The prototype uses deliberately authored demo scenarios rather than a paid model call. This avoids passing off unpredictable output as product reliability. In production, the scenario engine would be replaced by repository indexing, dependency analysis, and an agent planner. The UI contract would stay the same: each conclusion needs a traceable reason, a bounded context, and a verification path.")
 heading(doc, "3. I made uncertainty visible", 2)
@@ -164,7 +168,7 @@ add_para(doc, "I would focus next on making the context engine legible to the de
 add_para(doc, "I would also make verification a visible phase of the product. After an agent makes a change, the interface should communicate which tests ran, what passed, what remains unproven, and why the changed files were sufficient. This would make the product feel less like an opaque assistant and more like an engineering collaborator.")
 
 heading(doc, "UI opportunities", 1)
-add_para(doc, "My main product preference is for interfaces that make state and control obvious. For this category, users should always be able to answer: What has the agent understood? What is it about to do? What changed? How can I approve, interrupt, or revise it? A clear plan-review-execute-verify progression would reduce the cognitive load of long agent sessions.")
+add_para(doc, "My main product preference is for interfaces that make state and control obvious. In this category, a user should always be able to answer: What has the agent understood? What is it about to do? What changed? How can I approve, interrupt, or revise it? A clear plan-review-execute-verify progression would reduce the cognitive load of long agent sessions.")
 add_para(doc, "In particular, I would avoid relying only on a linear chat history for complex work. Chat is useful for intent, but it is a poor surface for comparing files, tracking multi-step plans, and understanding system-level impact. Persistent structured panels for context, plan, diffs, and proof would make complex work easier to inspect.")
 
 heading(doc, "How I would extend ChangeScope", 1)
