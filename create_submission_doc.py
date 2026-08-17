@@ -131,7 +131,7 @@ for text in [
 
 doc.add_page_break()
 heading(doc, "Architecture and design", 1)
-add_para(doc, "ChangeScope is a static Vite application written in vanilla HTML, CSS, and JavaScript. It has no server, database, authentication layer, or external API requirement. This is intentional: for an assignment demo, I wanted the central product interaction to be reliable, inspectable, and deployable at zero marginal cost.")
+add_para(doc, "ChangeScope is a standalone static application written in vanilla HTML, CSS, and JavaScript. It has no server, database, authentication layer, or external API requirement. This is intentional: for an assignment demo, I wanted the central product interaction to be reliable, inspectable, and deployable at zero marginal cost.")
 table = doc.add_table(rows=1, cols=3)
 set_table_geometry(table, [2200, 3900, 3260])
 for cell, value in zip(table.rows[0].cells, ["Layer", "Decision", "Why"]):
@@ -173,7 +173,7 @@ for text in [
     p = doc.add_paragraph(style="List Bullet"); p.paragraph_format.space_after = Pt(4); p.add_run(text)
 
 heading(doc, "How to run", 1)
-add_para(doc, "Clone the repository, run npm install, then run npm run start. For a production bundle, run npm run build. The project is ready for Vercel as a static Vite deployment and requires no environment variables.")
+add_para(doc, "Clone the repository and open index.html directly in a modern browser. For a production bundle, run npm run build. The project is ready for Vercel as a static deployment and requires no environment variables.")
 
 doc.core_properties.title = "Founding AI Engineer Assignment - ChangeScope"
 doc.core_properties.author = "Madhavik Dogra"
