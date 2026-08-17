@@ -64,6 +64,12 @@ def set_table_geometry(table, widths):
             tcW.set(qn("w:w"), str(width)); tcW.set(qn("w:type"), "dxa")
             set_cell_margins(cell); cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
+def repeat_table_header(row):
+    tr_pr = row._tr.get_or_add_trPr()
+    header = OxmlElement("w:tblHeader")
+    header.set(qn("w:val"), "true")
+    tr_pr.append(header)
+
 def add_page_number(paragraph):
     paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     run = paragraph.add_run("Page ")
@@ -127,15 +133,15 @@ for text in [
     "Review a four-step implementation plan with file-level rationale and verification criteria.",
     "Approve the plan explicitly. The demo confirms that the plan is ready to hand to an execution agent, while preserving human control."
 ]:
-    p = doc.add_paragraph(style="List Number"); p.paragraph_format.space_after = Pt(4); p.add_run(text)
+    p = doc.add_paragraph(style="List Number 2"); p.paragraph_format.space_after = Pt(4); p.add_run(text)
 
-doc.add_page_break()
 heading(doc, "Architecture and design", 1)
 add_para(doc, "ChangeScope is a standalone static application written in vanilla HTML, CSS, and JavaScript. It has no server, database, authentication layer, or external API requirement. This is intentional: for an assignment demo, I wanted the central product interaction to be reliable, inspectable, and deployable at zero marginal cost.")
 table = doc.add_table(rows=1, cols=3)
 set_table_geometry(table, [2200, 3900, 3260])
 for cell, value in zip(table.rows[0].cells, ["Layer", "Decision", "Why"]):
     shade(cell, PALE); p=cell.paragraphs[0]; p.text=""; set_font(p.add_run(value), size=10, color=DARK, bold=True)
+repeat_table_header(table.rows[0])
 for rowvals in [
     ("Interface", "Single-screen analysis workspace", "Keeps the journey visible: issue, context, plan, proof, approval."),
     ("Scenario engine", "Three deterministic scenarios", "Lets a reviewer test meaningful paths without API cost, keys, latency, or fabricated model behavior."),
