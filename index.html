@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b1020" />
+    <title>ChangeScope - Know the blast radius</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="noise"></div>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="ChangeScope home"><span class="brand-mark">⌁</span>ChangeScope</a>
+        <div class="repo-pill"><span class="status-dot"></span><span>northstar/api-platform</span><span class="branch">main</span></div>
+        <div class="top-actions"><button class="icon-button" aria-label="Notifications">⌁</button><div class="avatar">MD</div></div>
+      </header>
+
+      <section class="hero" id="top">
+        <div class="eyebrow"><span></span> SAFE CHANGE PLANNING</div>
+        <h1>Know the <em>blast radius</em><br />before writing code.</h1>
+        <p>Turn ambiguous product work into a reviewable implementation plan, with the context and proof each change deserves.</p>
+      </section>
+
+      <section class="command-card" aria-label="Issue selection">
+        <div class="command-prompt">›</div>
+        <input id="issue-input" aria-label="Issue input" value="Add role-based access control to workspace API routes" />
+        <button id="analyze-button" class="analyze-button">Analyze change <span>↵</span></button>
+      </section>
+      <div class="suggestions" aria-label="Example issues">
+        <button data-issue="Add role-based access control to workspace API routes">RBAC on workspace routes</button>
+        <button data-issue="Add audit events for sensitive workspace actions">Audit log sensitive actions</button>
+        <button data-issue="Move billing webhooks to the event worker">Move billing webhooks</button>
+      </div>
+
+      <section class="workspace" aria-live="polite">
+        <aside class="rail">
+          <div class="rail-title">Change map <span id="file-count">12 files</span></div>
+          <div id="file-list" class="file-list"></div>
+          <div class="context-meter">
+            <div class="meter-header"><span>Working context</span><strong id="context-percent">28%</strong></div>
+            <div class="meter"><span id="meter-fill"></span></div>
+            <p id="context-note">12 files selected from 186. Nothing unrelated was loaded.</p>
+          </div>
+        </aside>
+
+        <section class="map-panel">
+          <div class="panel-heading"><div><span class="section-label">DEPENDENCY PATH</span><h2>What this change touches</h2></div><button id="focus-button" class="text-button">Focus critical path ↗</button></div>
+          <div id="graph" class="graph" aria-label="Dependency graph"></div>
+          <div class="legend"><span><i class="legend-dot entry"></i>Entry point</span><span><i class="legend-dot change"></i>Change required</span><span><i class="legend-dot verify"></i>Verify</span></div>
+          <div id="risk-card" class="risk-card"></div>
+        </section>
+
+        <section class="plan-panel">
+          <div class="panel-heading"><div><span class="section-label">IMPLEMENTATION PLAN</span><h2>A plan you can disagree with</h2></div><span class="evidence">Evidence-backed</span></div>
+          <div id="plan-list" class="plan-list"></div>
+          <div class="approval-box">
+            <div><span class="approval-icon">✓</span><div><strong>Human approval required</strong><p>Nothing executes until you approve this plan.</p></div></div>
+            <button id="approve-button" class="approve-button">Approve plan <span>→</span></button>
+          </div>
+        </section>
+      </section>
+
+      <section class="proof-section">
+        <div><span class="section-label">PROOF, NOT PROMISES</span><h2>Every recommendation carries its evidence.</h2></div>
+        <div id="proofs" class="proof-grid"></div>
+      </section>
+    </main>
+    <div id="toast" class="toast" role="status"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

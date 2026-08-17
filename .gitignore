@@ -1,0 +1,5 @@
+node_modules/
+dist/
+tmp/
+submission/*.pdf
+__pycache__/
