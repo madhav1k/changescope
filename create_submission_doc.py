@@ -85,27 +85,6 @@ def heading(doc, text, level=1):
     p.add_run(text)
     return p
 
-def restart_numbered_list(doc, paragraphs):
-    """Give a group of List Number paragraphs a fresh numbering instance."""
-    numbering = doc.part.numbering_part.element
-    style_num_id = doc.styles["List Number"]._element.pPr.numPr.numId.val
-    source_num = next(node for node in numbering.findall(qn("w:num")) if node.get(qn("w:numId")) == str(style_num_id))
-    abstract_id = source_num.find(qn("w:abstractNumId")).get(qn("w:val"))
-    new_id = max(int(node.get(qn("w:numId"))) for node in numbering.findall(qn("w:num"))) + 1
-    new_num = OxmlElement("w:num")
-    new_num.set(qn("w:numId"), str(new_id))
-    abstract = OxmlElement("w:abstractNumId")
-    abstract.set(qn("w:val"), abstract_id)
-    new_num.append(abstract)
-    numbering.append(new_num)
-    for paragraph in paragraphs:
-        p_pr = paragraph._p.get_or_add_pPr()
-        num_pr = OxmlElement("w:numPr")
-        ilvl = OxmlElement("w:ilvl"); ilvl.set(qn("w:val"), "0")
-        num_id = OxmlElement("w:numId"); num_id.set(qn("w:val"), str(new_id))
-        num_pr.extend([ilvl, num_id])
-        p_pr.append(num_pr)
-
 doc = Document()
 section = doc.sections[0]
 section.top_margin = section.bottom_margin = section.left_margin = section.right_margin = Inches(1)
@@ -185,15 +164,13 @@ add_para(doc, "My main product preference is for interfaces that make state and 
 add_para(doc, "In particular, I would avoid relying only on a linear chat history for complex work. Chat is useful for intent, but it is a poor surface for comparing files, tracking multi-step plans, and understanding system-level impact. Persistent structured panels for context, plan, diffs, and proof would make complex work easier to inspect.")
 
 heading(doc, "How I would extend ChangeScope", 1)
-extension_items = []
 for text in [
     "Replace the scenario data with a repository adapter that indexes imports, routes, tests, ownership, and recent changes.",
     "Add a plan editor so a developer can change assumptions before approval.",
     "Connect an execution agent after approval, with real diffs and a test-run timeline.",
     "Add collaboration: reviewers can comment on a plan, pin required files, and approve high-risk changes."
 ]:
-    p = doc.add_paragraph(style="List Number"); p.paragraph_format.space_after = Pt(4); p.add_run(text); extension_items.append(p)
-restart_numbered_list(doc, extension_items)
+    p = doc.add_paragraph(style="List Number"); p.paragraph_format.space_after = Pt(4); p.add_run(text)
 
 heading(doc, "How to run", 1)
 add_para(doc, "Clone the repository and open index.html directly in a modern browser. For a production bundle, run npm run build. The project is ready for Vercel as a static deployment and requires no environment variables.")
